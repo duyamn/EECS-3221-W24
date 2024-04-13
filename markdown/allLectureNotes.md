@@ -279,7 +279,7 @@ Operating System definition
   - manage all resources
   - decides between conflicting requests for efficient and fair resource use
 - is a control program
-- controls execution of programs to prevents erors and imporoper use of the computer
+- controls execution of programs to prevents erors and improper use of the computer
 - everything a vendor ships when you order an operating system is a good approximation but varies wildly
 - the one program running at all times on the computer is the kernel which is part of the operating system
 - everything else is either
@@ -334,7 +334,7 @@ There are registers inside of the cpu itself
 
 Memory Address Register (MAR) specifies the address in memory for the next read or write
 
-Memory Buffer Register (MBR)contains teh data to be written/read into/from memory
+Memory Buffer Register (MBR)contains the data to be written/read into/from memory
 
 I/O Address Register (I/O AR) specifies a particular I/O device we're working with
 
@@ -351,9 +351,9 @@ it inputs/outputs data.
 CPU can pull directly from IO device
 
 Memory and I/O:
-- memory is a set of locatiosn defined in sequentially numbered addresses
+- memory is a set of locations defined in sequentially numbered addresses
 - each location contains a bit pattern that can be interpreted as either an instruction or data
-- an I/O module transfers dtat from external devices to processor and emmory, and vice versa
+- an I/O module transfers data from external devices to processor and memory, and vice versa
 
 ### Instruction Execution
 
@@ -392,7 +392,7 @@ Instruction Fetch and Execute from CPU pov:
 
 ---
 
-Hypoethical 16 bit machine
+Hypothetical 16 bit machine
 
 
 opcode - operation code that tells the processor what to do
@@ -408,14 +408,28 @@ These are all displayed in hex
 
 ![Alt text](../images/image-3.png)
 
-1:
-- fetch instruction from `300`
-- `1940` is loaded to `IR`
-  - `1` = `001` = load AC from memory
-  - `940` is where we're grabbing from
-- increment `PC`
-- load `0003` from `940` into `AC`
-
+rows and explanation:
+- 1:
+  - fetch instruction from `300`
+  - `1940` is loaded to `IR`
+    - `1` = `0001` = load AC from memory
+    - `940` is where we're grabbing from
+  - increment `PC` to `301`
+  - load `0003` from `940` into `AC`
+- 2:
+  - fetch instruction from `301`
+  - `5941` is loaded to `IR`
+    - `5` = `0101` = add to AC from memory
+    - `941` is where we're grabbing from
+  - increment `PC` to `302`
+  - add `0002` from `941` to `0003` in `AC`
+- 3:
+  - fetch instruction from `302`
+  - `2941` is loaded to `IR`
+    - `2` = `0010` = Store AC to memory
+    - `941` is where we're storing the data to
+  - increment `PC` to `303`
+  - `0005` from `AC` is stored to `941`
 
 ### Interrupts
 
@@ -427,21 +441,16 @@ Most IO devices are much slower than the cpu so it's less efficient for the cpu 
 
 Most operating systems are interrupt driven, I/O devices will cut in whenever they need to so that the cpu doesn't have to pause and wait on them.
 
----
-lect 1 end
-
----
-
 There are different kinds of interrupts:
 - hardware and software
   - whenever hardware or software wants to seek the attention of the processor
-  - hardware sends *signal* through a peripheral device to interrupt the processor
+  - hardware sends a *signal* through a peripheral device to interrupt the processor
   - software executes a specific instruction to interrupt the processor
 - vectored and non-vectored
-  - interupt transfers control to a specific address which contains the interrupt vector
+  - interrupt transfers control to a specific address which contains the interrupt vector
     - the interrupt vector has the address of the ISR
     - it's like a low level database that tells you what to do for a given interrupt
-  - interrupt vector table contains addresses that inform the interrupt handler as to where to find the interrupt service routines (ISR)
+  - interrupt vector table contains addresses that inform the interrupt handler as to where to find the Interrupt Service Routines (ISR)
   - vectored: manufacturer of the processor predefines this vector address
     - it's hardcoded/built-in
   - non-vectored: vector address is not predefined
@@ -515,8 +524,8 @@ An interrupt handler routine is generally part of the OS.
 The routine:
 - determines the nature of the interrupt
 - performs whatever actions are needed
-  - e.g. find out what I/O module generated the interrupt and brach to a program that will write more data out to that I/O module
-- allows the processor to continue executing the uesr program after it finishes
+  - e.g. find out what I/O module generated the interrupt and branch to a program that will write more data out to that I/O module
+- allows the processor to continue executing the user program after it finishes
 
 #### Program Status Word
 
@@ -572,7 +581,7 @@ So above we went over different techniques for handling I/O operations
 - `(a)`: programmed I/O
 - `(b)` and `(c)`: interrupt-driven I/O
 
-There is another third technique that we can go over later today called direct memory access (DMA)
+There is another third technique covered later on called Direct Memory Access (DMA)
 
 ![Alt text](../images/image-11.png)
 
@@ -642,6 +651,12 @@ my answer:
 
 ![Alt text](../images/image-15.png)
 
+```
+transcribed:
+
+The structure of most computers, in which both process instructions and data are stored in the same main memory.
+```
+
 #### Main Memory
 CPU can only load instructions from memory so programs must be loaded into memory in order to run.
 
@@ -675,7 +690,7 @@ non-volatile
 
 data is written there permanently during the manufacturing.
 
-Used for storing firmware and software that does not need to be changed ferquently
+Used for storing firmware and software that does not need to be changed frequentlya
 
 ex:
 - BIOS
@@ -714,8 +729,8 @@ Hard-disk drives (HDDs) and nonvolatile memory (NVM) hold onto things before we 
 
 HDD
 - metal or glass platters covered with magnetic recording material
-- head that moves and disk that rotates to read off of the disk
-- physical head moves
+- the platters are known as disks and rotate
+- physical head moves to parts of the disks in order to read from them as they spin
 
 Solid-state disks (SSD)
 - faster than HDD
@@ -740,9 +755,11 @@ CD-ROM or blu-ray
 
 magnetic tapes.
 
+`
 We still use magnetic tapes even though prof doesn't think we do since last she used them was in '97.
 What a fucking world we live in.
 Still using magnetic tape.
+`
 
 #### Storage Hierarchy
 
@@ -782,7 +799,7 @@ A large portion of operating sytem code is dedicated to managing I/O:
 - the varying nature of devices makes this a complex task that requires a lot of code
   - cameras, mice, keyboards, printers, fax machines, scanners, and all manner of devices are all classified under I/O device but will all have different needs
 
-When the prcoessor encounters an instruction relating to I/O,
+When the processor encounters an instruction relating to I/O,
 it executes that instruction by issuing a command to the appropriate I/O module.
 
 Possible techniques for I/O operations (2 of which covered previously [here](#flow-control-with-and-without-interrupts)):
@@ -792,8 +809,8 @@ Possible techniques for I/O operations (2 of which covered previously [here](#fl
 
 We previously mentioned that programmed I/O is very inefficient as it would require the processor to wait on the I/O devices as no device can keep up with the processor.
 
-Interrupt-driven is fine for moving small amounts of dat but can produce high overhead when used for bulk data movement.
-Burst memory movement is pretty good for all of this
+Interrupt-driven is fine for moving small amounts of data but can produce high overhead when used for bulk data movement.
+Burst memory movement is pretty good for all of this.
 Remember that all operating systems nowadays are interrupt-driven.
 
 But we run into the problem of I/O requests running into other I/O requests.
@@ -804,11 +821,12 @@ We need more efficiency which is where DMA comes in.
 
 DMA is used for high speed I/O devices capable of transmitting info at close to memory speeds.
 
-Blocks of data is transfered from the buffer storage to the main memory by the device controller w/o the cpu intervening.
+Blocks of data are transferred from the buffer storage to the main memory by the device controller w/o the cpu intervening.
 
 Only one interrupt is generated per block, rather than one interrupt per byte as is the case in interrupt-driven I/O.
 
 A von Neumann architecture:
+
 ![Alt text](../images/image-18.png)
 
 DMA is performed by a separate module on the system bus or incorporated into an I/O module.
@@ -819,21 +837,27 @@ When the prcessor wishes to read or write data it issues a command to the DMA mo
 - starting memory location for the read/write
 - number of words to read/write
 
-The processor returns to it's own work while the I/O operation is contrinued on by the DMA module.
+The processor returns to it's own work while the I/O operation is continued on by the DMA module.
 
 DMA transfers the block one word at a time, directly to/from memory w/o processor.
 
 Once complete,
-DMA sencds interrupt signal to the processor.
+DMA sends interrupt signal to the processor.
 
-Processor is only involved at the beginning and end of the transfer makig it far more efficient than interrupt driven or programmed I/O.
+Processor is only involved at the beginning and end of the transfer making it far more efficient than interrupt driven or programmed I/O.
 
 ![Alt text](../images/image-19.png)
+
 ![Alt text](../images/image-20.png)
+
 ![Alt text](../images/image-21.png)
+
 ![Alt text](../images/image-22.png)
+
 ![Alt text](../images/image-23.png)
+
 ![Alt text](../images/image-24.png)
+
 ![Alt text](../images/image-25.png)
 
 # Operating System Structures
@@ -852,7 +876,7 @@ For specific issues we may look at examples of how different operating systems d
 
 ## Computer System Architecture
 
-we can categorize a computer system according to teh # of general-purpose processors used:
+we can categorize a computer system according to the # of general-purpose processors used:
 - in contrast to application specific processors
   - found less often or even not at all
 - single-processor systems
@@ -911,17 +935,17 @@ multiprocessor:
 ![Alt text](../images/image-107.png)
 
 Symmetric:
-- most common and what we're workginw tih
+- most common and what we're working with
 - each processor has a cpu w/ their own registers
 - they also have their own private/local cache
 - All processors share physical memory over the system bus
 - `N` processes can run if there are `N` CPUs
 
-multicore systems can be more efficient that multiple chips with single cores because on-chip communication is faster tahn between-chip communications
+multicore systems can be more efficient than multiple chips with single cores because on-chip communication is faster than between-chip communications
 
 each core effectively acts as a separate cpu in terms of execution (there are some caveats) and can more quickly communicate with one another.
 
-One chip w multiple core uses significantly less power than multiple single-core chips.
+One chip w/ multiple cores uses significantly less power than multiple single-core chips.
 
 There's always a lot of overhead that comes in the form of inter-process and inter-program communication as well as resource allocation.
 These problems feed back into one another as they need to communicate about the resource allocation.
@@ -929,7 +953,7 @@ It's a big fucking mess
 
 Dual-Core design
 
-each core has it's own reigster set and it's own local chache often referred to as L1 cache
+each core has it's own reigster set and it's own local cache often referred to as L1 cache
 
 The level 2 or L2 cache is local to the chip and is shared by the two processing cores.
 
@@ -962,7 +986,7 @@ symmetric clustering:
 - more efficient
 - all active at the same time
 
-Some clusteres are for high-performance computing (HPC)
+Some clusters are for high-performance computing (HPC)
 - applications must be spciallly writeten for use parallelization
 
 ```
@@ -985,8 +1009,8 @@ Allows the operating system to run multiple programs
 
 Multiprogramming (batch system) needed for efficiency:
 - single user cannot keep CPU and I/O devices busy at all times
-- multiprogramming orgnanizes jobs (code and data) so CPU always has one to execute
-- a subset of total jobs in asystem is kept in memory
+- multiprogramming organizes jobs (code and data) so CPU always has one to execute
+- a subset of total jobs in a system is kept in memory
 - one job selected and run via job scheduling
 - when it has to wait (for I/O for ex), OS switches to another job
 
@@ -996,7 +1020,7 @@ Interactive computing.
 
 multitasking
 - each user has at least one program executing in memory, a process
-- if several jobs are ready to run at teh same time then we scheudle jobs for the cp
+- if several jobs are ready to run at the same time then we scheudle jobs for the cpu
 - if processes don't fit in memory then we swap them in and out of memory in order to run
 
 multiprogramming only can only execute one program at a time meanwhile all other processors are waiting for the processor.
@@ -1018,12 +1042,13 @@ Dual-mode operation:
   - distinguish between system running user or kernel code
   - some instructions are only executable in kernel mode
     - privileged instructions
-  - system call changes mode to kernel mode and return from call resets it ot user mode
+  - system call changes mode to kernel mode
+  - return from system call resets it to user mode
 
 CPUs increasignly support multi-mode operations
 - Virtual Machine Manager (VMM) mode for guest VMs
 
-I'm thinking most of the operating system shit lives in kernel mode.
+`I'm thinking most of the operating system shit lives in kernel mode.`
 
 #### Transition from User to Kernel Mode
 
@@ -1050,7 +1075,7 @@ Crucial takeaways:
 
 ### Resource Management
 
-Remember that the operanting system is a resource manager.
+Remember that the operating system is a resource manager.
 
 File space, i/o, processes, memory, chache, etc. all managed by the OS
 
@@ -1085,7 +1110,7 @@ Issues to Consider with Process Management
 - synchronization
   - coordinate processes that need to share data
 - mutual exclusion
-  - how to make processes or users share a resource at the sam etime
+  - how to make processes or users share a resource at the same time
 - deadlocks
   - \>=2 processes can't continue b/c they are waiting for the others to do something
 - livelock
@@ -1154,7 +1179,7 @@ Long term storage.
 
 Very important to manage properly
 
-Speed of computer operation hinges on dis subsystem and its algos.
+Speed of computer operation hinges on this subsystem and its algos.
 How do we read and write in an efficient way
 
 SSDs have semiconductor tech that's really good but still very expensive so we still have to take other forms of storage into account.
@@ -1184,7 +1209,7 @@ OS Activities:
 
 Recall that cache is a faster piece of storage that we place frequently accessed data that we would ordinarily store in slower storage.
 
-Caches have limited size so we need to manage what we store in their and when.
+Caches have limited size so we need to manage what we store in there and when.
 
 The size and replacement policy can greatly impact performance.
 
@@ -1206,7 +1231,15 @@ Bandwidth:
 ##### Cache Coherence
 ![Alt text](../images/image-28.png)
 
-There might be multiple processors with their own caches but there cuold be some incorrect execution that results in 2 or more copies of a cache block to exist in 2 different processors' caches
+```
+transcribed:
+
+Cache coherency is a situation where multiple processor cores share the same memory hierarchy, but have their own L1 data and instruction caches
+
+Incorrect execution could occur if two or more copies of a given cache block exist, in two processors' caches, and one of these blocks is modified.
+```
+
+There might be multiple processors with their own caches but there could be some incorrect execution that results in 2 or more copies of a cache block to exist in 2 different processors' caches
 
 This is a problem when we try to write back that cache.
 
@@ -1216,9 +1249,9 @@ OS is meant to hide particularities of hardware devices from the user
 
 responsible for:
 - memory management of I/O
-  - buffering - temp storage of data while being trasnferred
+  - buffering - temp storage of data while being transferred
   - caching - storing parts of data in faster storage for performance
-  - spooling - overlapping of output of one job with input of other jobs
+  - spooling - overlapping output of one job with input of other jobs
 - general device-driver interface
 - drivers for specific hardware devices
 
