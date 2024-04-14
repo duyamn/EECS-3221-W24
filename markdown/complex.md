@@ -14,6 +14,8 @@ toc:
 - [CPU Scheduling](#cpu-scheduling)
   - [Different ALgos](#different-algos)
   - [Multiprocessing](#multiprocessing)
+  - [Real Time](#real-time)
+- [Memory Management](#memory-management)
 
 # Critical Section Problem and Mutual Exclusion
 
@@ -661,3 +663,11 @@ for hard affinity the process decides on a number of CPUs.
 
 It can choose CPUs to benefit from a shared L2 cache
 ```
+
+## Real Time
+
+no clue what the fuck is going on here
+
+at least not to the extent that I can lay it out here simply
+
+# Memory Management

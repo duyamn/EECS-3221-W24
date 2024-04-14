@@ -141,7 +141,7 @@ toc:
     - [Queueing Models](#queueing-models)
     - [Simulations](#simulations)
     - [Real Implementation](#real-implementation)
-- [Main Memory](#main-memory-1)
+- [Memory Management](#memory-management-1)
   - [Background for Memory Management](#background-for-memory-management)
     - [Memory Protection](#memory-protection)
     - [Logical vs Physical Address Space](#logical-vs-physical-address-space)
@@ -4344,7 +4344,7 @@ How to select CPU-scheduling algo for an OS?
 Determine criteria, then eval algos
 
 example of criteria:
-- maximizing utilization under the constratint that the maximum response time is 300 milliseconds
+- maximizing utilization under the constraint that the maximum response time is 300 milliseconds
 - maximizing throughput such that turnaround time is (on average) linearly proportional to total execution time
 
 ### Deterministic
@@ -4367,12 +4367,12 @@ Deterministic Modelling:
 
 Queueing models are complicated and limited.
 
-Simulations give more accurate evlaution of scheduling algos:
+Simulations give more accurate evaluation of scheduling algos:
 - programmed model of computer system
 - clock is a variable
 - gather stats indicating algo performance
 - data to drive sim gathered via:
-  - rng according ot probabilities
+  - rng according to probabilities
   - dists defined mathematically or empirically
   - trace files record sequences of real events in real systems
 
@@ -4387,7 +4387,7 @@ The best way is to just implement this stuff for real.
 This is very costly.
 
 In general,
-most flexible scheduling algos are those that can be altered by the system amangers or by the users so that they can be tuned for a specific (set of) app(s)
+most flexible scheduling algos are those that can be altered by the system mangers or by the users so that they can be tuned for a specific (set of) app(s)
 
 Envionments can vary however.
 
@@ -4397,7 +4397,7 @@ Knowledge Check
   - b. average arrival time for new processes in the queue
 - 
 
-# Main Memory
+# Memory Management
 
 ## Background for Memory Management
 
@@ -4414,7 +4414,7 @@ a memory unit only sees a stream of either:
 
 register access is done in one CPU clock cycle.
 
-main memory can take many cycles, causing a stall where the cpu hasd to wait on the memory.
+Main memory can take many cycles, causing a stall where the cpu has to wait on the memory.
 
 cache sits b/w main mem & cpu regs for faster access than mem
 - principle of locality
@@ -4565,7 +4565,7 @@ DLLs are also known as shared libraries
 - stub replaces itself with the address of the routine and executes the routine
 
 Dyn. Linking and DLLs require help from the OS
-- if the processes in mem are protected from one another, OS is th eonly one that can check to see that
+- if the processes in mem are protected from one another, OS is the only one that can check to see that
   - whether the needed reoutines is in another process' memory space
   - can allow multiple processes to access the same memory address
 - w/o this each program needs to include its own copy of its language library
@@ -4603,7 +4603,7 @@ mem usually divided into 2 partitions
 
 Relocation Registers
 - protect user processes from each other
-- prevent user processes from chaing operating-system code and data
+- prevent user processes from changing operating-system code and data
 - base contains value of smallest physical address
 - limit contains range of logical addresses
   - example: relocation = 100040 and limit = 74600
