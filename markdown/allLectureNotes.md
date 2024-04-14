@@ -2088,7 +2088,7 @@ Context Switch
   - more complex os and pcb = longer switch time
   - we want to minimize context switches so we don't waste too much time
 - time dependent on hardware support
-  - multiple sets of registers per CPU = multiple loaded contexts
+  - multiple sets of registers per CPU = multiple loaded contexts at once = faster
     - not common
   - typical speed is several microseconds
 
