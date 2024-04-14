@@ -2163,15 +2163,15 @@ processes.
 
 ![Alt text](../images/image-57.png)
 
-The actual fetching and execution of the instructions is thought of as a thread or lightweight process (LWP).
+The actual fetching and execution of the instructions is thought of as a thread or LightWeight Process (LWP).
 
 Most unix based processing will say threads.
 
 Some OSes don't differentiate between threads and processes, treating them all as processes.
 
-THe process model introduced so far assumed that a process as an executing program with a single thread of control.
+The process model introduced so far assumed that a process as an executing program with a single thread of control.
 
-Virtually all modern operating sytems, however, provide features enabling aprocess to contain multiple threads of control.
+Virtually all modern operating sytems, however, provide features enabling a process to contain multiple threads of control.
 
 ![Alt text](../images/image-58.png)
 
@@ -2256,7 +2256,7 @@ Server will have
   - an open door
   - necessary as otherwise no one can connect
 
-Q: why multithread and not multi proces
+Q: why multithread and not multi process
 
 A: It's much faster
 - process creation is heavywhite while thread creation is lightweight
@@ -2310,7 +2310,7 @@ There are different kinds of architectures out there so the interesing L2 cache 
 ```
 
 multithreaded programming
-- provides a mechanism for more efficeint use of these multiple computing cores and improved concurrency
+- provides a mechanism for more efficient use of these multiple computing cores and improved concurrency
 
 we need to program properly in order to take advantage of the presence of multithreading
 
@@ -2345,7 +2345,7 @@ parallelism is faster than concurrency alone
 We are either parallelising data or tasks
 
 data parallelism:
-- distribute distinctive chunk of data across multiple cores, and perofmr the same operation on each
+- distribute distinctive chunk of data across multiple cores, and perform the same operation on each
 - ex
   - each core gets a different image
   - each core performs the same operation of creating a thumbnail
@@ -2361,7 +2361,7 @@ task parallelism
 
 There are a number of challenges that come with programming for multicore or multiprocessor systems
 - dividing activities into separate concurrent takss
-  - what takss are independent of each other
+  - what tasks are independent of each other
 - balance
   - pick tasks that perform equal work of equal value
 - data spliting
@@ -2390,6 +2390,7 @@ example:
   - 75% parallel
   - 25% serial
 - 1 core $\rarr$ 2 cores
+
 $$
 speedup\le\frac{1}{0.25+\frac{(1-0.25)}{2}}
 \newline
@@ -2401,7 +2402,9 @@ speedup\le\frac{1}{0.25+\frac{(1-0.25)}{2}}
 \newline
 = 1.6
 $$
+
 - 1 core $\rarr$ 4 cores
+
 $$
 speedup\le\frac{1}{1/4+\frac{(1-1/4)}{4}}
 \newline
