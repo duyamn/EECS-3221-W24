@@ -3869,26 +3869,6 @@ This concludes the `Deadlock and Starvation` slide deck.
 
 # CPU Scheduling
 
-toc:
-- [Recap](#recap)
-- [Basics](#basics)
-- [Scheduling Criteria](#scheduling-criteria)
-- [Scheduling Algos](#scheduling-algos)
-- [Multi-Processor Scheduling](#multi-processor-scheduling)
-  - [Multicore](#multicore)
-  - [Multithreaded Cores](#multithreaded-cores)
-  - [Load Balancing](#load-balancing)
-  - [Processor Affinity](#processor-affinity)
-  - [NUMA Systems](#numa-systems)
-  - [Hetereogeneous Multiprocessing](#hetereogeneous-multiprocessing)
-- [Real-Time CPU Scheduling](#real-time-cpu-scheduling)
-  - [Priority Based Scheduling](#priority-based-scheduling)
-- [Algo Eval](#algo-eval)
-  - [Deterministic](#deterministic)
-  - [Queueing Models](#queueing-models)
-  - [Simulations](#simulations)
-  - [Real Implementation](#real-implementation)
-
 ![Alt text](../images/image-152.png)
 
 ## Recap for CPU Scheduling
