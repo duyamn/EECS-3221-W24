@@ -11,6 +11,9 @@ toc:
     - [Mutex Locks](#mutex-locks)
     - [Semaphores](#semaphores)
 - [Deadlocks and Starvation](#deadlocks-and-starvation)
+- [CPU Scheduling](#cpu-scheduling)
+  - [Different ALgos](#different-algos)
+  - [Multiprocessing](#multiprocessing)
 
 # Critical Section Problem and Mutual Exclusion
 
@@ -537,3 +540,124 @@ knowledge check
 
 These are also important.
 I recommend looking at the `deadlock characterization` section and onwards in the [lecture notes](./allLectureNotes.md).
+
+# CPU Scheduling
+
+We're actually scheduling different threads to have time with the CPU.
+
+## Different ALgos
+
+A good scheduling algo has
+- high CPU utilisation
+- high throughput
+- low turnaround time
+  - low time to execute a particular process
+- low waiting time
+- low response time
+  - time between first request and first response in interactive systems
+
+First Come First Serve is a very laggy way of going about it and it doesn't optimize for waiting time of algos.
+
+Shortest Job First scheduling is optimal as it gives the minimum average waiting time for a given set of processes.
+A more accurate description of this is the "shortest-next-cpu-bursts" as that's the criteria for being a "short" job.
+
+However we don't know the exact length of the next job so we can predict it.
+
+We use an exponential averaging of the length of the previous cpu bursts,
+the details of this are in the notes and slides.
+
+If we implement a non-preemptive version of Shortest Job First will just allow the currently running process to finish its CPU urst.
+
+However we can make a preemptive version of this.
+This way we can also make a choice when anew process arives at teh ready queue while a previous process is still executing.
+
+Context switches take about 10 microseconds so we're fine with preempting here since bursts take milliseconds.
+
+We basically switch between processes based on how much time is remaining for a process to burst.
+
+Then there's Round Robin scheduling.
+Depending on the number of processes in the ready queue we decide on a certain time quantum.
+Each process gets to have that much time uninterrupted with the CPU,
+this stops a single process from hogging the CPU.
+We don't want a large quantum or else the performance starts to resemble that of FCFS but we also want quantum that isn't so small that it's comparable to the time it takes to context switch.
+
+Once a process spends it's quantum time with the processor it is swapped out.
+If the process finishes before the quantum runs out then we swap to a new process and restart the timer.
+
+Average waiting time is often quite high and the turnaround is higher than SJF but it has a better response time.
+
+Priority Scheduing is associating a priority number (integer) with each process and allocating the CPU to the process with the highest priority.
+This allocation can be done preemptively or non-preemptively.
+
+SJF is priority scheduling where priority is the inverse of predicted next cpu burst time. (larger burst = lower priority and vice versa)
+
+We run into the problem of starvation in both of these however as a low priority process may never execute.
+
+Sometimes we pair priority scheduling with Round-Robin so that we can preempt a process for another process within its priority tier.
+But since we can't preempt for a process in alower tier a higher priority process just gets to use the CPU with impunity.
+
+With Priority Scheduling we have separate queues for each priority.
+
+For older processes we can "age" them by moving them to different queues.
+
+The final scheduler is the mutlilevel-feedback-queue scheduler.
+It's the most general CPU scheduling algo.
+There are:
+- a number of queues
+- diff algo for each queue
+- method used to determine
+	- when to
+		- upgrade a process
+		- demote a process
+	- which queue a process will enter when that process needs service
+
+There's a good example of this in the lecture notes doc thing
+
+## Multiprocessing
+
+We have things like hyperthreading now where a single core multiple hardware threads that we can treat as effectively being different CPUs.
+
+We can have one common ready queue of threads that the different CPUs can be assigned from or each of them can have a privately managed ready queue.
+
+![Alt text](../images/image-181.png)
+
+![Alt text](../images/image-185.png)
+
+When multiprocessing we have to consider load balancing and processor affinity.
+
+Load Balancing:
+- we ideally want each CPU to do the same amount of work
+- push migration
+  - periodic task checks load on each processor
+  - if there's an imbalance fonud
+    - task pushed from overloaded CPU to other CPUs
+- pull migration
+  - idle processors pull a waiting task from a busy processor
+
+Processor Affinity:
+- processor's cache fills up with a thread's memory accesses after running for a while
+  - the cache is now warm
+  - the thread has an affinity for the processor
+- when moving the thread to another processor
+  - first processor's contents must be invalidated
+  - new cache needs to be filled/warmed
+  - ***high cost****
+    - we don't like this hgih cost so we try to avoid migrating a thread from one processor to another
+- soft affinity
+  - OS attmpets to keep a thread running on the same processor
+  - no guarantees
+- hard affinity
+  - allows a process to specify a set of processors it may run on
+
+```
+initially the cache is empty (usually almost all 16 kilobytes)
+
+when the process starts it misses over and over again but then starts filling out the cache
+
+processor starts prepopulating the cache in order to help it out.
+seeing what to remove and what to get rid of.
+
+for hard affinity the process decides on a number of CPUs.
+
+It can choose CPUs to benefit from a shared L2 cache
+```

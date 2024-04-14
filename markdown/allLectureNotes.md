@@ -3848,15 +3848,6 @@ We may have starvation if we keep selecting the same victim over and over again
 
 we have to include the number of rollbacks as part of the cost factor
 
----
-Knowledge Check
-- a system can recover from a deadlock by
-  - d. All of the above
-- to recover from a deadlock using resource preemption,
-  - d. All of the above
-
-This concludes the `Deadlock and Starvation` slide deck.
-
 # CPU Scheduling
 
 ![Alt text](../images/image-152.png)
@@ -3869,7 +3860,7 @@ This concludes the `Deadlock and Starvation` slide deck.
 
 ## Basics for CPU Scheduling
 
-Kernel threads are ht eones being scheduled.
+Kernel threads are the ones being scheduled.
 
 "Process scheduling" and "thread scheduling" are often used interchangeably.
 
@@ -3920,7 +3911,7 @@ Knowledge Check
   - amount of time to execute a particular process
   - minimize this
 - waiting time
-  - aggregate amount of time a process has been waiting int eh ready queue
+  - aggregate amount of time a process has been waiting in the ready queue
   - will be affected by scheduling algo
   - minimize this
 - response time
@@ -3985,7 +3976,7 @@ For FCFS we'd have
 average waiting time $= (0+6+14+21)/4=10.75$
 
 We can only estimate the length,
-typically assumiing it to be similar to the previous one.
+typically assuming it to be similar to the previous one.
 Then pick the process with the shortest predicted next CPU burst.
 
 We use an exponential averaging of the length of the previous cpu bursts
@@ -4035,7 +4026,7 @@ Tweaking the $\alpha$ value will allow us to put more weight on near or far.
 
 Preemptive vs Non-Preemptive
 - SJF can be either
-- the choice arises when anew process arrives at the ready queue while a previous process is still executing
+- the choice arises when a new process arrives at the ready queue while a previous process is still executing
 - the next burst of the newer process may be shorter than what is left of the currently executing process
 - in this scenario
   - if preemptive
@@ -4094,7 +4085,7 @@ Priority Scheduling
 - priority number (integer) associated w/ each process
 - CPU is allocated to the process with the highest priority
   - can be done preemptively or nonpreemptively
-- SJF is priority scheudling where priority is the inverse of predicted next CPU burst time
+- SJF is priority scheduling where priority is the inverse of predicted next CPU burst time
   - larger burst = lower priority
   - smaller burst = higher priority
 
@@ -4168,9 +4159,9 @@ What is Memory Stall?
 
 When a processor acceses memory it waits around for the data to become available.
 
-THe processor is much faster than the memory so it has to wait on the memory.
+The processor is much faster than the memory so it has to wait on the memory.
 
-THis can also occur during due to a cache miss
+This can also occur due to a cache miss
 
 ---
 
@@ -4178,7 +4169,7 @@ THis can also occur during due to a cache miss
 
 Each core as > 1 hardware thread
 
-if one thread has amemory stall then we switch to another thread for 0 downtime.
+if one thread has a memory stall then we switch to another thread for 0 downtime.
 
 ![Alt text](../images/image-183.png)
 
@@ -4212,7 +4203,7 @@ Successive memory accesses by thread are often satisfied in cache memory (aka "w
 ```
 Prof uses an example of repititive actions on a data structure, something like a for-loop iterating through an array or spreadsheet.
 
-We start to move things to the cache to speed things up
+We start to move things to the cache in advance to speed things up
 ```
 
 If load balancing causes a thread to migrate to another processor:
@@ -4258,7 +4249,7 @@ so far we have assumed all processors are identical so we can allow any thread t
 
 We only differed based on load balancing, processor affinity policies, and NUMA systems
 
-Some mobile systems are now designed using cores that run the same instruction set but vary in terms of their clocks peed and power management.
+Some mobile systems are now designed using cores that run the same instruction set but vary in terms of their clock speed and power management.
 
 They can also adjust the power draw of a core to the point of idling.
 
@@ -4296,8 +4287,7 @@ can present special issues
   - no guarantee as to when tasks will be scheduled
 - hard real-time systems
   - task must be serviced by its deadline
-  - service after deadlin has expired
-    - same as no service at all
+  - service after deadline has expired is the same as no service at all
 
 event latency
 - amount of time that elapses from when an event occurs to when it is serviced
