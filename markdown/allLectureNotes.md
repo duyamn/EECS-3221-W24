@@ -4822,7 +4822,7 @@ on average fragmentation = 1/2 frame size. so are the small frames more desirabl
 
 ### Free Frames
 
-The frame table has one entry for each physical page frame indicating whether the latter is free or allocated and, if it is allocated, to whihc page of whihc process.
+The frame table has one entry for each physical page frame indicating whether the latter is free or allocated and, if it is allocated, to which page of which process.
 
 ![Alt text](../images/image-225.png)
 
@@ -5693,7 +5693,7 @@ data is copied onto multiple disks to provide fault tolerance
 raid is arranged into different levels
 `and these different levels are different from each person you may ask lmao`
 
-data copying techniques whihc differ based on raid level
+data copying techniques which differ based on raid level
 - data mirroring
   - logical disk consists of two physical drives
   - every write carried out on both drives
