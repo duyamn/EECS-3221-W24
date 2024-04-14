@@ -1342,7 +1342,7 @@ Protection and Security:
     - physical key - yubikey
     - 2FA
   - defend against external I/O devices from invalid access attempts
-- once users are allowed in the OS looks on the access control list (ACL) to see what the user is allowed to do
+- once users are allowed in, the OS looks on the Access Control List (ACL) to see what the user is allowed to do
 
 ---
 
@@ -1447,7 +1447,7 @@ Thus came the birth of the process.
 
 A process is:
 - a program in execution
-- the unit of owrk in a modern computing system
+- the unit of work in a modern computing system
 - an entity that can be assigned to a processor and executed on a processor
 - a unit of activity characterized by
   - the execution of a sequence of instructions
@@ -1462,7 +1462,7 @@ A process is:
 
 We may be more precise later
 
-A process can be uniquely characterized by anumber of elements:
+A process can be uniquely characterized by a number of elements:
 - identifier
   - unique identifier associated w/ process to distinguish from all other processes
   - pid - process ID unique to a process
@@ -1475,7 +1475,7 @@ A process can be uniquely characterized by anumber of elements:
 - program counter
   - the address of the next instruction in the program to be executed
 - memory pointers
-  - includes pointers to the program code and data associated witht he process plus any memory blocks shared with other processes
+  - includes pointers to the program code and data associated with the process plus any memory blocks shared with other processes
 - context data
   - data that are present in the registers during execution
 - i/o status information
@@ -1632,7 +1632,7 @@ Mircrosoft doesn't like `fork()`
   - give the least privilege possible to get a job done in order to protect the user and system
 - programs that fork but don't exec render address-space layout randomisation ineffective, since each process has the same memory layout
 
-fork is fast and ha 0 parameters while windows' CreateProcess has many parameters.
+fork is fast and has 0 parameters while windows' `CreateProcess` has many parameters.
 
 We also don't run into the error of running out of memory.
 
@@ -1667,24 +1667,26 @@ mine:
 ![Alt text](../images/image-38.png)
 #### Termination
 
-A process terminates when it finishes executing its final statement and askss the operating system to delete it by using the `exit()` system call
+A process terminates when it finishes executing its final statement and asks the operating system to delete it by using the `exit()` system call
 
 all the resources of the process (physical and virtual) are deallocated and reclaimed by the operating system.
 
-Batch job should include a halt instruction or an explicit os service call for termination. Halt will geernate an interrupt to alert the os that a process has completed.
+Batch job should include a halt instruction or an explicit os service call for termination. Halt will generate an interrupt to alert the os that a process has completed.
 
 Interactive applications (browsers and shit used by user) are terminated when the user decides typically.
 
 parents can terminate children
 
 
-WOW:![Alt text](../images/image-40.png)
+WOW:
+
+![Alt text](../images/image-40.png)
 
 not reading allat but pretty cool :thumbsup:
-### Five-State Process Model
-***Note: THis is on the assignemnt (Thanks Cate)***
 
-USing a single queue the dispatcher could not just select the process at the oldest end.
+### Five-State Process Model
+
+Using a single queue the dispatcher could not just select the process at the oldest end.
 
 Dispatcher needs to find a process that is not blocked and that has been in the list for the queue for the longest.
 
@@ -1709,21 +1711,21 @@ States:
   - process has been halted or aborted for whatever reason
 
 Transitions:
-- null -> new
+- null $\rarr$ new
   - new process is created to exec program
-- new -> ready
+- new $\rarr$ ready
   - os is prepared to take on additional process
-- ready -> running
+- ready $\rarr$ running
   - dispatcher dispatches the process
   - OS chooses ready process to run
-- running -> exit
+- running $\rarr$ exit
   - process is terminated by the OS if the process indicates it has completed or if it aborts
-- running$\rarr$ready
+- running $\rarr$ ready
   - running process has reached teh maximum allowable time for uninterrupted execution
   - no longer your turn on the xbox
-- running$\rarr$blocked
+- running $\rarr$ blocked
   - process requrests something for which it must wait
-- blocked$\rarr$ready
+- blocked $\rarr$ ready
   - process in blocked state is moved to ready state when the event for which is has been waiting occurs
 
 remember that we never have blocked to running.
@@ -1770,12 +1772,12 @@ For each event that will cause an interrupt we will make a queue for it that way
 
 ### Suspended Processes
 
-Problem - it will become common for all of th eprocesses in memory to be waiting for I/O, and for the processor to become idle.
+Problem - it will become common for all of the processes in memory to be waiting for I/O, and for the processor to become idle.
 - there's only so much memory space to store so many processes
 - we can pretty easily fill up the memory with all the processes and leave the processor idle since it only really works with shit in the memory.
 
 Solution - swapping
-- move part or all of a process from mai memory to disk
+- move part or all of a process from main memory to disk
 - it's a very specific part of the disk that's allocated for the memory to work with
 - "there is a specific page file dedicated by the operating system"
 - this is like the linux swap
@@ -1785,11 +1787,11 @@ The only problem is how do we do that?
 We add another state to our process model
 
 When the OS swaps one of the `blocked` processes out on to the disk we put it into a `suspend`ed queue:
-- a queue of existing processes that have been temporarily kicked out of th emain memory or suspended
+- a queue of existing processes that have been temporarily kicked out of the main memory or suspended
 
 the os then brings in another process from the suspend queue or it honors a new-process request
 
-execution then continues withthe newly arrived process
+execution then continues with the newly arrived process
 
 ![Alt text](../images/image-45.png)
 
@@ -1802,7 +1804,7 @@ we can activate it again.
 
 So there are now 4 ways to get a process into the ready queue
 1. a newly admitted process
-2. a proces times out
+2. a process times out
 3. a blocked process is unblocked thanks to the event it was waiting on occuring
 4. a suspended process is selected to become active once more
 
@@ -1839,22 +1841,22 @@ When we hear/read "suspend" then we think of the disk.
 - the event finishes
 - the process is no longer blocked but it's still suspended so it remains in the disk space but gets sent to a suspended ready queue
 
-`Ready+Suspend`$\rarr$`Ready`:
-- when there are no `Ready` processes the OS will need to bring oen in to continue execution
+`Ready+Suspend` $\rarr$ `Ready`:
+- when there are no `Ready` processes the OS will need to bring one in to continue execution
 
-`Ready`$\rarr$`Ready+Suspend`:
+`Ready` $\rarr$ `Ready+Suspend`:
 - to free up a sufficiently large block of main memory
 - we have a ton of processes that are ready.
 
-`Running`$\rarr$`Ready+Suspend`:
+`Running` $\rarr$ `Ready+Suspend`:
 - the OS is preempting the process because a higher-priority process on the `Blocked+Suspend` queue has just become unblocked
 - something higher priority just got unblocked and we need to execute on that one now instead
-- the os could move the running process directly to the `Read+Suspend` queue and fre some main memory
+- the os could move the running process directly to the `Ready+Suspend` queue and free some main memory
 - process preemption occurs when an execution process i interrupted by the processor so that another process can be executed
 
-`New`$\rarr$`Ready+Suspend`:
+`New` $\rarr$ `Ready+Suspend`:
 
-`New`$\rarr$`Ready`:
+`New` $\rarr$ `Ready`:
 
 We could add more states but then there's more work involved in changing between states.
 There are more states in different designs however.
@@ -1863,7 +1865,7 @@ Q: How do we decide wether a `New` process goes straight to `Ready+Suspend` or `
 
 A:
 we prefer to send a new process to the suspended queue.
-THe OS will prefer grabbing from ready suspend.
+The OS will prefer grabbing from ready suspend.
 Very rare that we will send something straight to ready since that would mean that the suspend is empty as well so there would be no point in sending it there first and wasting compute time on switching
 
 A suspended process
@@ -1891,11 +1893,9 @@ A suspended process
 
 ## Process Description and Control
 
-In a multiprogramming env there are several processes that have been created and exist in virtual memory.
-
 ![Alt text](../images/image-47.png)
 
-What info doe sthe OS need to control processes and manage resources for them?
+What info does the OS need to control processes and manage resources for them?
 
 OS constructs and maintains tables of information about each entity that it is managing:
 - memory tables
@@ -1912,7 +1912,7 @@ main = real
 secondary = virtual
 
 we use memory tables to do:
-- allocation of main meory to processes
+- allocation of main memory to processes
 - allocation of secondary memory to processes
 - any protection attributes of blocks of main or virtual memory
   - which processes may access certain shared memory regions
@@ -1923,16 +1923,16 @@ we use memory tables to do:
 
 used by the OS to manage the I/O devices and channels of the computer system
 
-at any given time, an I/O device may be available or assigned toa  particular process
+at any given time, an I/O device may be available or assigned to a particular process
 
-OS needs to know the status of the I/O operation and the location in main memory being used as the source or destination fo the I/O transfer
+OS needs to know the status of the I/O operation and the location in main memory being used as the source or destination of the I/O transfer
 
 ### File Tables
 
 Provide information about the:
 - existence of files
 - location on secondary memory
-- current statwus
+- current status
 - other attribs
 
 may be maintined by a file management system (windows NTFS, linux/unix FAT) or the OS based on different operating system
@@ -1943,11 +1943,10 @@ Must be maintained to manage processes
 
 References memory, I/O, and files directly or indirectly in the process tables to show what the process needs/uses
 
-when the OS is initialized it must have some access to some configuartion data that define the basic environment
+when the OS is initialized it must have some access to some configuration data that define the basic environment
 - all the info required to build out the tables
 - everything you can see and view in the bios
 - I think anyways
-
 
 ### Process Control
 
@@ -1976,7 +1975,7 @@ The stack goes from higher to lower addresses while the heap grows from lower ad
 
 ### Process Location
 
-location of a process image will depend on the memory managemnt scheem being used
+location of a process image will depend on the memory management scheme being used
 
 At any given time parts of the process image can be both in the main and secondary memory
 
@@ -2007,7 +2006,7 @@ Process State Information
   - user-visible registers
   - control and status registers
   - stack pointers
-- all processor designs include a register or set of registers often known as the program status word (PSW) that contains condition codes plus status information
+- all processor designs include a register or set of registers often known as the Program Status Word (PSW) that contains condition codes plus status information
   - EFLAGS registers is an example of a PSW used by any OS running on an x86 processor
   - ![Alt text](../images/image-50.png)
   - ![Alt text](../images/image-51.png)
@@ -2031,8 +2030,8 @@ Typical mangement functions:
 - creation and termination
 - scheduling and dispatching
 - switching
-- synchronizationand support for interprocess communication
-- mangaement of PCBs
+- synchronization and support for interprocess communication
+- management of PCBs
 
 we're going to be looking at a lot of these.
 
@@ -2044,11 +2043,6 @@ OS decides to create a new process
 3. initialize the process control block
 4. set the appropriate linkages (put it in the queue)
 5. creates or expands other data structures
-
----
-Lect start
-
----
 
 ### Switching
 
@@ -2077,7 +2071,7 @@ Trap:
   - fatal
     - move to exit state and a process switch occurs
   - not fatal
-    - action will depend on the nature of th eerror and the design of the OS
+    - action will depend on the nature of the error and the design of the OS
     - the OS will try to recover
 
 Supervisory Call:
@@ -2089,7 +2083,7 @@ Context Switch
   - when the cpu switches to another process, the system must save the state of the old process and load the saved state for the new process
   - process' context = PCB
 - we have to efficiently save our old PCB and start using the new PCB to execute
-- context witch time is overhead
+- context switch time is overhead
   - no useful work is done while switching
   - more complex os and pcb = longer switch time
   - we want to minimize context switches so we don't waste too much time
@@ -2109,7 +2103,7 @@ notice that there is idle time for the operating system to perform the saving of
 ## Execution of the Operating System
 
 recall:
-- OS functions in the same was as ordinary computer software
+- OS functions in the same way as ordinary computer software
   - OS is a set of programs executed by the processor
 - OS frequently relinquishes control and depends on the processor to restore control to the OS
 
@@ -2118,15 +2112,6 @@ Question
 - it's executed by the processor like any other program
 - is the OS a process?
 - how is it controlled?
-
----
-OS just throws control back to itself.
-
-Whenever it gives away control there's always the contingency that it'll come back.
-
-the collection of processes control one another.
-
----
 
 3 approaches:
 1. separate kernel
@@ -2143,11 +2128,10 @@ Execute the kernel of the OS outside of any process
 
 ### User Processes
 
-
 All OS software is executed in the context of a user process:
-- OS a collection of routines that the user calls to perform variousfunctions, executed within the environment of the user's process
+- OS is a collection of routines that the user calls to perform variousfunctions, executed within the environment of the user's process
 - common on OSes on smaller computers (PCs)
-  - commonly used in today's laptops
+- commonly used in today's laptops
 
 ### Process-Based OS
 
