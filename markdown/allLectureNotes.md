@@ -97,7 +97,7 @@ toc:
       - [Dekker's Algo](#dekkers-algo)
       - [Peterson's Solution](#petersons-solution)
     - [Hardware Support Approaches](#hardware-support-approaches)
-        - [Memory Barrier](#memory-barrier)
+      - [Memory Barrier](#memory-barrier)
       - [Hardware Instructions](#hardware-instructions)
       - [Atomic Variables](#atomic-variables)
     - [OS \& Programming Languages Approaches](#os--programming-languages-approaches)
@@ -1686,7 +1686,9 @@ not reading allat but pretty cool :thumbsup:
 
 ### Five-State Process Model
 
-Using a single queue the dispatcher could not just select the process at the oldest end.
+***Note: This is on the assignment (Thanks Cate)***
+
+Using a single queue, the dispatcher could not just select the process at the oldest end.
 
 Dispatcher needs to find a process that is not blocked and that has been in the list for the queue for the longest.
 
@@ -2471,7 +2473,7 @@ Types of threads:
 virtually all contemporary operating systems support kernel threads
 
 thread libraries contain code for:
-- creating an ddestroying threads
+- creating and destroying threads
 - passing messages and data between threads
 - scheduling thread execution
 - saving and restoring thread contexts
@@ -2486,7 +2488,7 @@ thread libraries contain code for:
 User Threads
 - many are mapped to a single kernel thread
 - kernel is not aware of the existence of threads
-- thread management is done by threda library at the user level
+- thread management is done by thread library at the user level
 
 ![Alt text](../images/image-67.png)
 
@@ -2537,13 +2539,13 @@ thread management is all done by the kernel
 
 creating a user thread creates a kernel thread (one-to-one)
 
-kernel maintains context information fo rthe process as a whole and for individual threads within the process
+kernel maintains context information for the process as a whole and for individual threads within the process
 
 ![Alt text](../images/image-73.png)
 
 pros:
 - kernel can simultaneously schedule multiple threads from the same process on multiple processes
-- if one theread in a process is blocked, the kernel can schedule another thread of the same process
+- if one thread in a process is blocked, the kernel can schedule another thread of the same process
 - linux and windows implement this
 
 cons:
@@ -2553,7 +2555,7 @@ cons:
 ### Combined User and Kernel level threading
 
 - thread creation done in user space
-- most of scheudling and synchronization of threads within an application
+- most of scheduling and synchronization of threads within an application
 - multiple user-level threads from a single application are mapped onto smaller or equal number of kernel threads
   - many-to-many
 - number of kernel threads may be specific to either a particular application or a particular machine
@@ -2639,14 +2641,14 @@ Race Condition
 
 ## Critical-Section Problem
 
-critical segement of code:
+critical segment of code:
 - process may be accessing and updating data that is shared with at least one other process
 - only one process in critical section at a time
 
 when a process wants to enter the critical section
 - entry section - process asks permission to enter
 - it does the critical section
-- exit section - let's eeryone know it's done
+- exit section - let's everyone know it's done
 - remainder section is the rest of the noncritical stuff
 
 we need to ensure the 3 following conditions
@@ -2665,7 +2667,7 @@ we need to ensure the 3 following conditions
 
 very shrimple
 
-we could prevent interrupts from occuring whilue a shared variable was being modified
+we could prevent interrupts from occuring while a shared variable was being modified
 
 useless when we try to move to multiprocessor since it would just start disabling everything.
 
@@ -2709,29 +2711,21 @@ Dijkstra went to go publish it for him so that's why there's a jpeg of him on th
 
 first known sol'n to the mutual exclusion problem in concurrent programming
 
-allows 2 threads to shar ea single-use resource without conflict, using on ly shared memory for communication
+allows 2 threads to share a single-use resource without conflict, using only shared memory for communication
 
 only one access to a memory location can be made at a time
 
 we have a global memory location labelled `turn` that is shared between the two processes
 
 Processes check to see if it's their turn and execute accordingly.
-Once their done they give the turn to the other process.
+Once they're done, they give the turn to the other process.
 
 Mutual exclusion is guaranteed.
 
 What is the problem?
 
----
-prof left off here for 05/02/24 lect
-
----
-midterm is all question formats and on paper
-
----
-
-Porcesses must strictly alternate in their use of their critical section
-- the pace of execution is dictated by teh slower of the two processes
+Processes must strictly alternate in their use of their critical section
+- the pace of execution is dictated by the slower of the two processes
 
 One process being slow makes the whole things slower since everyone has to wait on that slower process.
 
@@ -2753,11 +2747,11 @@ drawbacks:
 - permanent blocking still possible
   - process fails inside critical section or after setting flag to true w/o entering
 - no guaranteed mutual exclusion
-  - P0 exeutes the while statement and finds flag[1] set to false
+  - P0 executes the while statement and finds flag[1] set to false
   - P1 executes the while statement and finds flag[0] set to false
   - P0 sets flag[0] to true and enters its critical section
   - P1 sets flag[1] to true and enters its critical section
-  - now both processes arenow executing their critical sections so the program is incorrect
+  - both processes are now executing their critical sections so the program is incorrect
 
 3rd attempt - another revision
 - the problem from before was that a process can change its state after the other process has checked it but before the other process can enter its critical section
@@ -2775,7 +2769,7 @@ drawbacks:
 
 4th attempt - yet another revision:
 - Each process sets its flag to indicate its desire to enter its critical section but is prepared to reset the flag to defer to the other process
-- mtuual exclusion is guaranteed under this model
+- mutual exclusion is guaranteed under this model
 
 ![Alt text](../images/image-92.png)
 
@@ -2806,7 +2800,7 @@ drawbacks:
 - P1 will at some point note that it is its turn to defer and set its flag to false, allowing P0 to proceed
 - after P0 has used its critical section
   - P0 flag set to false
-  - turn set to 1 to transfer the right to sinsit to P1
+  - turn set to 1 to transfer the right to insist to P1
 
 #### Peterson's Solution
 
@@ -2889,7 +2883,7 @@ Many systems provide hardware support for implementing the cirtical section code
 
 uniprocessors - could disable interrupts
 - currently running code would execute w/o preemption
-- genearlly, too inefficient on multiprocessor systems
+- generally, too inefficient on multiprocessor systems
   - OS using this are not broadly scalable
 
 looking at 3 forms of hardware support
@@ -2897,10 +2891,9 @@ looking at 3 forms of hardware support
 2. hardware instructions
 3. atomic variables
 
-##### Memory Barrier
+#### Memory Barrier
 
-How a computer architecture determines what memory guarantees it
-will provide to an application program is known as its memory model.
+How a computer architecture determines what memory guarantees it will provide to an application program is known as its memory model.
 
 models may be either
 - strongly ordered
@@ -2911,8 +2904,7 @@ models may be either
 developers cannot make an assumption about whether or not the memory model is strongly or weakly ordered.
 
 in lieu of this guarantee,
-we use memory barriers
-
+we use memory barriers.
 
 memory barriers
 - computer instructions that force any changes in memory to be propogated to all other processors in the system
@@ -2948,7 +2940,7 @@ boolean test_and_set (boolean *target){
 - set it to true
 - return the value that was in memory
 
-This let's us make a lock out of the flag we want us to make sure we don't enter the critical section while anothre program is in its critical section.
+This let's us make a lock out of the flag we want us to make sure we don't enter the critical section while another program is in its critical section.
 
 ```c
 do {
@@ -2990,7 +2982,7 @@ while (true) {
 
 #### Atomic Variables
 
-Typically instructions such as compare-and-swap are used as bhilding blocks for other synchronization tools.
+Typically instructions such as compare-and-swap are used as building blocks for other synchronization tools.
 
 One tool is an atomic variable that provdes *atomic* (uninterruptible) updates on basic data types such as integers and booleans.
 
@@ -3094,13 +3086,8 @@ Knowledge check
   - is essentially a boolean variable
 - what is the correct order of operations for protecting a critical section using mutex locks?
   - `acquire()` followed by `release()`
-- busy waiting refers to the phenomenonthat while a process is in its critical section, any other prcess that tries to enter its critical section must loop continuously in the call to acquire the mutex lock
+- busy waiting refers to the phenomenon that while a process is in its critical section, any other process that tries to enter its critical section must loop continuously in the call to acquire the mutex lock
   - yes
-
-```
-Prof very briefly touched upon a notion of 2 different kinds of implementation of semaphore and mutex.
-Something about a classic implementation versus some other implementation.
-```
 
 #### Semaphores
 
@@ -3155,7 +3142,7 @@ Initializing the semaphore to 0 will allow us to only allow $P_2$ to execute $S_
 
 A semaphore must guarantee that no 2 processes can execute the `wait()` and `signal()` on the same semaphore at the same time
 
-implementation becomes the critical sectin problem where the `wait` and `signal` code are placed in critical section.
+implementation becomes the critical section problem where the `wait` and `signal` code are placed in critical section.
 
 Could now have busy waiting in critical section implementation.
 
@@ -3230,7 +3217,7 @@ Threads must:
 - release the resource after using it
 
 The number of resources requested cannot exceed the total number of resources available in the system
-- a thread cannot request 2 net interface if there is only 1
+- a thread cannot request 2 net interfaces if there is only 1
 - `can't ask for what we don't have`
 
 Request:
@@ -3249,7 +3236,7 @@ Reusable Resources:
 - can be used safely by one process at a time
 - not depleted by that use
 - not consumable
-- ex: proessors, I/O channels, memory (main and secondary), I/O devices, data structures (files, databases, and semaphores)
+- ex: processors, I/O channels, memory (main and secondary), I/O devices, data structures (files, databases, and semaphores)
 
 Consumable Resources:
 - created/produced and destroyed/consumed
@@ -3377,7 +3364,7 @@ deadlock can arise if 4 conditions hold at the same time:
   - only one process at a time can use a resource
 - hold and wait
   - a process holding at least one resource is waiting to acquire additional resources held by other processes
-- no preemption (for resources no the process)
+- no preemption (for resources not the process)
   - resource only released by the process holding it after it's done its task
   - resource cannot be preempted
     - processor can't take resources from process and give it to other processes arbitrarily
@@ -3513,7 +3500,7 @@ Car 4 is sitting lane Rd and wants to cross lane __Ra__
 
 ---
 Knowledge Check
-- one necessary condition for deadlock is \_\_\_, which states taht a process must be holding one resource and waiting to acquire additional resources
+- one necessary condition for deadlock is \_\_\_, which states that a process must be holding one resource and waiting to acquire additional resources
   - a: hold and wait
 - a cycle in a resource-allocation graph is \_\_\_
   - d. a necessary and sufficient condition for a deadlock in the case that each resource has exactly one instance
@@ -3723,7 +3710,7 @@ conditions:
 - multiple instances of resources
 - each process must have a prior claim maximum use
 - when a process requests a resource, it may have to wait
-- when aprocess gets all its resources it must return them in a finite amount of time
+- when a process gets all its resources it must return them in a finite amount of time
 
 ![Alt text](../images/image-140.png)
 
@@ -3765,7 +3752,7 @@ A: the sequence satisfies safety requirement
 ---
 
 In essence:
-- we are in a safe setaet if there is at least one sequence of resource allocations to processes that does not result in a deadlock
+- we are in a safe state if there is at least one sequence of resource allocations to processes that does not result in a deadlock
 - for $i\in[0..n]$
   - compare the available with the need vector
   - if the available is lesser than the need vector then unsafe
