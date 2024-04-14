@@ -4680,7 +4680,7 @@ External Fragmentation
 
 Internal Framgentation
 - allocated memory may be slightly larger than requested memory
-- size difference is memory interla to a partition but not being used
+- size difference is memory internal to a partition but not being used
 
 ![Alt text](../images/image-213.png)
 
@@ -4690,7 +4690,7 @@ given $N$ blocks allocated, $N/2$ blocks will be lost to (internal and external)
 - 1/3`?` may be unusuable -> 50% rule
 
 Reduce external fragmentation by compaction:
-- shuffle memory contents to place all fre memory together in one largeblock
+- shuffle memory contents to place all free memory together in one largeblock
 - requires
   - dynamic relocation
   - done at execution time
