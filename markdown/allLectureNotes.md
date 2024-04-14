@@ -4831,16 +4831,16 @@ The frame table has one entry for each physical page frame indicating whether th
 OS maintains a copy of the page table for each process just as it maintains a copy of the instruction counter and register contents
 
 page table is kept in main memory
-- page-table base register (PTBR) points to the page table
-- page-table length register (PLTR) indicates size of the page table
+- Page-Table Base Register (PTBR) points to the page table
+- Page-Table Length Register (PLTR) indicates size of the page table
 
-in this scheme ever data/instruction access requires two memory accesses
+In this scheme, every data/instruction access requires two memory accesses
 - one for the page table
 - one for the actual data or instruction
 - memory access is slowed by a factor of 2
 
 sol'n:
-- se a special fast-lookup hardware cached called translation look-aside buffers (TLBs) (aka associative memory)
+- use a special fast-lookup hardware cached called Translation Look-aside Buffers (TLBs) (aka associative memory)
 
 #### TLB
 
@@ -4850,14 +4850,14 @@ each entry in the TLB has 2 parts:
 1. key/tag
 2. value
 
-TLB is associative, hihg-speed memory
+TLB is associative, high-speed memory
 - when the associative memory is presented with an item
 - the item is compared with all keys simultaneously
 
 typically small
 - 32-1024 entries
 
-tlb is a hardware feature
+TLB is a hardware feature
 
 `This is a lot like a cache`
 
