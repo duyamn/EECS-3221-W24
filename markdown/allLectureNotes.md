@@ -3255,7 +3255,7 @@ A set of processes is deadlocked when each process
 in the set is blocked awaiting an event that can only
 be triggered by another blocked process in the set.
 
-The block is permanenet because none of the events ever get triggered.
+The block is permanent because none of the events ever get triggered.
 
 ![Alt text](../images/image-115.png)
 
@@ -4913,7 +4913,7 @@ for now we're doing a valid-invalid bit attached to each entry in the page table
   - the associated page is in the process' logical address space
   - thus a legal page
 - invalid
-  - indicates the page is no tin the process' logical address space
+  - indicates the page is not in the process' logical address space
 - or we can use the page-table length register (PTLR)
 
 any violations result in a trap to the kernel
@@ -4931,7 +4931,7 @@ shared code
 
 private code and data
 - each process keeps a separate copy of the code and data
-- th epages for the private code and data can appear anywhere in the logical address space
+- the pages for the private code and data can appear anywhere in the logical address space
 
 ![Alt text](../images/image-228.png)
 
@@ -4993,7 +4993,7 @@ ability to execute partially-loaded program
 
 virtual mem
 - separation of user logical mem from physical mem
-- only part of the pgram needs to be in mem for execution
+- only part of the program needs to be in mem for execution
 - logical address space can be larger than physical address space
 - allows address spaces to be shared by several processes
 - allows for more efficient process creation
@@ -5024,7 +5024,7 @@ Knowledge check:
 - which of the following is a benefit of allowing a program that is only partially in memory to execute?
   - d. all of the above
   - programs can be written to use more memory than is available in physical memory
-  - cpu util and throughput is incdreased
+  - cpu util and throughput is increased
   - less io needed to load or swap each user program into mem
 - in general virtual memory decreases the degree of multiprogramming in a system
   - false
@@ -5037,7 +5037,7 @@ virtual memory can be implemented via
 - demand segmation
 
 demand paging:
-- bring a page into memeory ONLY when it is needed
+- bring a page into memory ONLY when it is needed
   - less required
     - I/O
     - memory
@@ -5047,7 +5047,7 @@ demand paging:
 
 ![Alt text](../images/image-237.png)
 
-valid-invlid bit
+valid-invalid bit
 - with each page entry there is a valid-invalid bit
   - v $\rarr$ in-memory - memory resident
   - i $\rarr$ not-in-memory
@@ -5084,7 +5084,7 @@ free-frame list
 
 performance of demand paging
 - 3 major activities of servicing a page-fault
-  - serivce the page-fault interrupt
+  - service the page-fault interrupt
   - read in the page
     - this is where most of the time is spent
   - restart the process
@@ -5112,7 +5112,7 @@ $$
 
 if 1 in 1000 accesses causes a page fault ($p=0.001$) then EAT = 8.2 microseconds. a slowdown by a factor of 40
 
-if we want a perfoamnce degredation (slowdown) less than 10 percent
+if we want a performance degredation (slowdown) less than 10 percent
 - 10% of 200 (effective access time we want) = 20 ns
 - 220>200 + 7,999,800 * p
 - 20 > 7,999,800 * p
@@ -5124,7 +5124,7 @@ it can't all be done by the OS.
 
 ---
 Knowledge Check
-- on a system with demaend-paging, a process will experience a high page fault rate when the process begins execution
+- on a system with demand-paging, a process will experience a high page fault rate when the process begins execution
   - true
   - similar principle to caching where we need to slowly fill things up in the memory that the process asks for
   - since the page table is invalid to start with we end up faulting a ton as we're setting things up for the process
@@ -5176,7 +5176,7 @@ need for page replacement
   - do we terminate it
   - do we swap out the whole process till there are more free frames
   - do we replace the page
-    - we can find some page in memory but notreally in use, page it out
+    - we can find some page in memory but not really in use, page it out
     - most operating systems now combine swapping pages with page replacement
 
 we want an algor that has the minimum number of page faults
@@ -5186,8 +5186,8 @@ basic page replacement:
   - modify page-fault service routine to include page replacement
 - use modify (dirty) bit to reduce the overhead of page transfers
   - only modified pages are written to disk
-  - unmodified pages have no need ot be written back to backing store since it wouldn't make a differnce
-- page replacement completes separation b/w logicla mem and phys mem
+  - unmodified pages have no need to be written back to backing store since it wouldn't make a differnce
+- page replacement completes separation b/w logical mem and phys mem
   - large virt mem can be provided on a smaller phys mem
 
 ![Alt text](../images/image-247.png)
@@ -5211,7 +5211,7 @@ evalutate algo by running it on a particular string of memory reference (referen
 and
 computing the number of page faults on that string
 - string is just page numbers, not full addresses
-- if we have a referece to a page `p`, then any references to page `p` that immediately follow will never cuase a page fault
+- if we have a reference to a page `p`, then any references to page `p` that immediately follow will never cause a page fault
 - results depend on the number of frames available
 
 ![Alt text](../images/image-249.png)
@@ -5286,7 +5286,7 @@ Implementation
 - requires hardware support
 - hardware counter implementation
   - every page entry has a counter
-    - every tmie the page is referenced through this entry, copy the clock into the counter
+    - every time the page is referenced through this entry, copy the clock into the counter
   - when a page needs to be changed
     - look at the counters (clock) of the pages
     - find the one w/ smallest value (least recently used)
@@ -5302,7 +5302,7 @@ LRU approximation algos
 - reference bit
   - with each page associate a bit
     - initially set to 0
-  - when a page is refernced, the bit is set to 1
+  - when a page is referenced, the bit is set to 1
   - if a reference page has reference bit = 0 then we replace it
     - we don't know the order so this isn't perfect
 - for this reason, we make many algos that approximate LRU
@@ -5315,7 +5315,7 @@ if the reference bit of the page to be replaced is equal to:
 - 0 $\rarr$ replace it
 - 1
   - page is given second chance
-  - move on to select the next FIFOpage
+  - move on to select the next FIFO page
   - clear reference bit
     - set it to 0
   - arrival time is set to current time
@@ -5383,12 +5383,12 @@ Knowledge Check
 
 `Much easier design principle compared to page replacement according to prof`
 
-The question of how we allocate the fixed amount of ofree memory among the various processes
+The question of how we allocate the fixed amount of of free memory among the various processes
 
 ex:
 - 128 frames
 - os takes 35
-- 93 free for iser
+- 93 free for user
 - we have 2 processes
   - how many frames does each process get?
 
@@ -5396,7 +5396,7 @@ ex:
 
 The first requests need to generate the page faults to populate their frames
 
-2. first 93 page faults wuold all get free frames from the free-frame list
+2. first 93 page faults would all get free frames from the free-frame list
 
 3. when the free-frame list was exhausted, a page-replacement algo would be used to select one of the 93 in-memory pages to replaced by the 94th, and so on
 4. when the process terminated, the 93 frames would once again be placed on the free-frame list
@@ -5426,7 +5426,7 @@ if there aren't "enough" pages, page fault rate is very high
 
 leads to
 - low cpu util
-- os thnks it needs to increase degree of multiprogramming
+- os thinks it needs to increase degree of multiprogramming
 - can be exacerbated by more processes being added
 
 ![Alt text](../images/image-256.png)
@@ -5526,7 +5526,7 @@ Note that there are several read/write heads and magnetically coated platters.
 
 `Landing Zone` is where the read/write head sits when it's not doing anything
 
-HDDs spin platters of magnetically-coated materiaul under moving read-write heads
+HDDs spin platters of magnetically-coated material under moving read-write heads
 
 info stored by recording magnetically on platters
 
@@ -5546,7 +5546,7 @@ The heads themselves cannot move independently of one another as they all share 
 Drives rotate at 60-250 times per second (can vary depending on brand and usecase).
 Rotation speed relates to transfer rates.
 
-Trasnfer rate is rate at which data flow b/w drive and computer.
+Transfer rate is rate at which data flow b/w drive and computer.
 
 This can be improved by other things.
 
@@ -5558,7 +5558,7 @@ Head crash results from disk head making contact with the disk surface which is 
 This can be caused by sudden power off.
 `Prof says and it is true, better to be safe than sorry. But it's also worth noting that a lot of modern drives have mechanisms to prevent head crashes as a result of sudden power loss. Mechanism in place to automatically retract the head upon power loss detection. Not infallible mechanisms and not in all drives, especially old ones, but it's worth noting.`
 
-Platters range from .85" to 14" (historyically).
+Platters range from .85" to 14" (historically).
 More commonly they will be in 3.5, 2.5, and 1.8 inch sizes
 
 range from 30gb to 3tb per drive `we've gotten much larger from then`
@@ -5569,7 +5569,7 @@ performance varies.
 
 #### Nonvolatile Memory Devices
 
-electrical rather tahn mechanical
+electrical rather than mechanical
 
 solid-state-disk (SSD)
 - flash-memory based NVM
