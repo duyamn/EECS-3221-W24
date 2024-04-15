@@ -579,6 +579,19 @@ A good scheduling algo has
 - low response time
   - time between first request and first response in interactive systems
 
+types:
+- FCFS
+- SJF
+  - w/ exponential averaging
+- shortest remaining time first
+  - Preemptive SJF
+- Round Robin
+  - time quantum
+  - timing
+- priority based
+- priority based with round robin
+- multi-level feedback queue scheduler
+
 First Come First Serve is a very laggy way of going about it and it doesn't optimize for waiting time of algos.
 
 Shortest Job First scheduling is optimal as it gives the minimum average waiting time for a given set of processes.
